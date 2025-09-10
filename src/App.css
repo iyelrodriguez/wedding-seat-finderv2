@@ -1,3 +1,4 @@
+/* Base styles */
 body {
   margin: 0;
   font-family: system-ui, sans-serif;
@@ -5,7 +6,7 @@ body {
 }
 
 .app-container {
-  padding: 2rem;
+  padding: 1rem;
   display: flex;
   justify-content: center;
 }
@@ -14,17 +15,19 @@ body {
   max-width: 800px;
   width: 100%;
   background: white;
-  padding: 2rem;
+  padding: 1.5rem;
   border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
 .title {
   text-align: center;
   margin-bottom: 1.5rem;
   color: #2b5dab;
+  font-size: 1.8rem;
 }
 
+/* Search box */
 .search-box {
   display: flex;
   gap: 0.5rem;
@@ -36,32 +39,38 @@ body {
   padding: 0.7rem;
   border: 1px solid #ccc;
   border-radius: 8px;
+  font-size: 1rem;
 }
 
 .search-box button {
   padding: 0.7rem 1.2rem;
-
   border: none;
   border-radius: 8px;
   cursor: pointer;
+  background: #e5e5e5;
+  font-size: 1rem;
 }
 .search-box button:hover {
   background: #ddd;
 }
 
+/* Results */
 .results {
   margin-bottom: 1rem;
   padding: 0.8rem;
   border-radius: 8px;
+  font-size: 1rem;
 }
 
 .results.single {
-  background: #565656 ;
+  background: #565656;
   border: 1px solid #cdddf9;
+  color: #fff;
 }
 .results.multiple {
   background: #565656;
   border: 1px solid #ffe2a8;
+  color: #fff;
 }
 .results.none {
   color: #666;
@@ -69,21 +78,24 @@ body {
 
 .results ul {
   padding-left: 1.2rem;
+  margin: 0.5rem 0 0;
 }
 
 .name {
   font-weight: 600;
 }
 .highlight {
-  color: #d97706;
+  color: #f59e0b;
   font-weight: bold;
 }
 
+/* Seating plan */
 .plan-container {
   position: relative;
   border: 1px solid #ccc;
   border-radius: 8px;
   overflow: hidden;
+  margin: 1.5rem 0;
 }
 
 .plan-container img {
@@ -94,24 +106,26 @@ body {
 .marker {
   position: absolute;
   transform: translate(-50%, -100%);
-  width: 30px;
-  height: 30px;
   background: #2b5dab;
   color: white;
-  font-size: 0.8rem;
+  font-size: clamp(0.6rem, 2vw, 0.9rem); /* responsive size */
   font-weight: bold;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+  width: clamp(20px, 4vw, 30px);   /* responsive width */
+  height: clamp(20px, 4vw, 30px);  /* responsive height */
 }
 
 .highlight-marker {
   background: #f59e0b;
-  transform: translate(-50%, -100%) scale(1.1);
+  transform: translate(-50%, -100%) scale(1.15);
+  z-index: 10;
 }
 
+/* Admin panel */
 .admin-panel {
   margin-top: 1.5rem;
   border-top: 1px solid #ddd;
@@ -133,9 +147,14 @@ body {
 .admin-login button {
   padding: 0.5rem 1rem;
   background: #2b5dab;
-  color: 2b5dab;
+  color: white;
   border: none;
   border-radius: 6px;
+  cursor: pointer;
+}
+
+.admin-login button:hover {
+  background: #1f407a;
 }
 
 .admin-inputs {
@@ -144,8 +163,34 @@ body {
   margin-bottom: 1rem;
 }
 
+.admin-inputs input {
+  flex: 1;
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+}
+
 .admin-actions {
   display: flex;
   gap: 1rem;
   align-items: center;
+}
+
+/* Mobile tweaks */
+@media (max-width: 600px) {
+  .title {
+    font-size: 1.4rem;
+  }
+
+  .search-box input {
+    font-size: 0.9rem;
+  }
+
+  .search-box button {
+    font-size: 0.9rem;
+  }
+
+  .results {
+    font-size: 0.9rem;
+  }
 }
