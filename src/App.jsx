@@ -27,6 +27,7 @@ function App() {
   const [isAdmin, setIsAdmin] = useState(false);
   const [adminEntered, setAdminEntered] = useState(false);
   const [tableToPlace, setTableToPlace] = useState("");
+  const [dragging, setDragging] = useState(null); // track marker being dragged
   const planRef = useRef(null);
 
   // Load guest list & markers
@@ -104,10 +105,52 @@ function App() {
     reader.readAsText(file);
   };
 
+  // Dragging logic
+  const handleMouseDown = (e, table) => {
+    if (!adminEntered) return;
+    setDragging(table);
+    e.stopPropagation();
+  };
+
+  const handleMouseMove = (e) => {
+    if (!dragging || !planRef.current) return;
+    const rect = planRef.current.getBoundingClientRect();
+    const x = ((e.clientX - rect.left) / rect.width) * 100;
+    const y = ((e.clientY - rect.top) / rect.height) * 100;
+    setMarkers((m) => ({ ...m, [dragging]: { x, y } }));
+  };
+
+  const handleMouseUp = () => {
+    if (dragging) setDragging(null);
+  };
+
+  useEffect(() => {
+    window.addEventListener("mousemove", handleMouseMove);
+    window.addEventListener("mouseup", handleMouseUp);
+    return () => {
+      window.removeEventListener("mousemove", handleMouseMove);
+      window.removeEventListener("mouseup", handleMouseUp);
+    };
+  });
+
   return (
     <div className="app-container">
       <div className="card">
-        <h1 className="title">Wedding Seat Finder</h1>
+        {/* Hero Section */}
+        <div className="hero">
+          <div className="hero-content">
+            <h1>Iyel and Roxy's Wedding</h1>
+            <h2>September 20, 2025</h2>
+            <h2>Dona Jovita Resort, Calamba</h2>
+            <a
+              href="https://maps.app.goo.gl/2zrg8VGxCGa6CBF8A"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              📍 View on Google Maps
+            </a>
+          </div>
+        </div>
 
         {/* Search */}
         <div className="search-box">
@@ -151,7 +194,11 @@ function App() {
         )}
 
         {/* Seating plan */}
-        <div ref={planRef} onClick={handlePlaceMarker} className="plan-container">
+        <div
+          ref={planRef}
+          onClick={handlePlaceMarker}
+          className="plan-container"
+        >
           <img src="/seatplan.png" alt="Seating plan" />
           {Object.entries(markers).map(([table, pos]) => {
             const isSelected =
@@ -168,6 +215,7 @@ function App() {
                   left: `${pos.x}%`,
                   top: `${pos.y}%`,
                 }}
+                onMouseDown={(e) => handleMouseDown(e, table)}
               >
                 {table}
               </div>
@@ -214,6 +262,7 @@ function App() {
                   <button onClick={exportMarkers}>Export markers</button>
                   <input type="file" accept=".json" onChange={importMarkers} />
                 </div>
+                <p className="tip">💡 Drag markers to move them.</p>
               </div>
             )}
           </div>
