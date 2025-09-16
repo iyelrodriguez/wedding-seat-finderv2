@@ -138,29 +138,23 @@ function App() {
       <div className="card">
         {/* Hero Section */}
         <div className="hero">
-        <div className="hero-content">
-  <h1>Iyel and Roxy's Wedding</h1>
-  <h2>3:00 PM September 20, 2025</h2>
-  <h2>Dona Jovita Resort, Calamba</h2>
-
-  <a
-    href="https://maps.app.goo.gl/2zrg8VGxCGa6CBF8A"
-    target="_blank"
-    rel="noopener noreferrer"
-    className="block mt-2"
-  >
-    📍 View on Google Maps
-  </a>
-
-  <a
-    href="https://iyelandroxyweddinginvitation.my.canva.site/i-r"
-    target="_blank"
-    rel="noopener noreferrer"
-    className="block mt-2"
-  >
-    💌 Visit Our Wedding Website
-  </a>
-</div>
+          <div className="hero-content">
+            <h1><a
+              href="https://iyelandroxyweddinginvitation.my.canva.site/i-r"
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{ color: "inherit", textDecoration: "none" }}
+            >Iyel and Roxy's Wedding</a></h1>
+            <h2>3:00 PM September 20, 2025</h2>
+            <h2>Dona Jovita Resort, Calamba</h2>
+            <a
+              href="https://maps.app.goo.gl/2zrg8VGxCGa6CBF8A"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              📍 View on Google Maps
+            </a>
+          </div>
         </div>
 
         {/* Search */}
